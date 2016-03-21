@@ -1,22 +1,15 @@
 gitlab-server:
-  ports:
-  - 22:22/tcp
-  - 80:80/tcp
-  labels:
-    io.rancher.sidekicks: gitlab-data
+  image: gitlab/gitlab-ce:8.5.1-ce.0
   hostname: ${gitlab_hostname}
-  image: gitlab/gitlab-ce:8.5.1-ce.0
-  volumes_from:
-  - gitlab-data
-
-gitlab-data:
-  labels:
-    io.rancher.container.start_once: 'true'
-  entrypoint:
-  - /bin/true
-  hostname: gitdata
-  image: gitlab/gitlab-ce:8.5.1-ce.0
+  ports:
+  - 2289:22/tcp
+  - 80:80/tcp
+  - 443:443/tcp
+  restart: always
+  environment:
+  - GITLAB_OMNIBUS_CONFIG="gitlab_rails['gitlab_shell_ssh_port'] = 2289;"
   volumes:
-  - /etc/gitlab
-  - /var/log/gitlab
-  - /var/opt/gitlab
+  - /srv/gitlab/config:/etc/gitlab
+  - /srv/gitlab/logs:/var/log/gitlab
+  - /srv/gitlab/reconfigure:/var/log/gitlab/reconfigure
+  - /srv/gitlab/data:/var/opt/gitlab

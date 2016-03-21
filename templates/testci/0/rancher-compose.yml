@@ -11,7 +11,7 @@
       description: "Gitlab hostname"
       label: "Hostname:"
       required: true
-      default: "git.example.com"
+      default: "gitlab.example.com"
       type: "string"
 
 gitlab-server:
@@ -24,7 +24,3 @@ gitlab-server:
     strategy: recreate
     response_timeout: 2000
     healthy_threshold: 2
-
-gitlab-data:
-  scale: 1
-  retain_ip: true
