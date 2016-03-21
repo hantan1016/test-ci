@@ -1,0 +1,5 @@
+name: Test CI
+description: |
+  Just test something
+version: 8.5.1-0
+category: Versioning
